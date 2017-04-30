@@ -9,6 +9,7 @@ import com.example.springmvc.front.model.Company;
  */
 public interface CompanyDao {
 
-	public Company getCompanyByUserId(Integer userid);	
+	public Company getCompanyByUserId(Integer userid);
+
 	public Company getCompanyById(Integer id);
 }

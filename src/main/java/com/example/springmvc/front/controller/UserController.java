@@ -33,8 +33,7 @@ import com.example.springmvc.front.services.IUserService;
 @Controller
 public class UserController {
 
-	private static Logger logger = LoggerFactory
-			.getLogger(UserController.class);
+	private static Logger logger = LoggerFactory.getLogger(UserController.class);
 
 	@Autowired
 	private IUserService userService;
@@ -46,8 +45,7 @@ public class UserController {
 	 * @return
 	 */
 	@RequestMapping(value = { "/", "/index" })
-	public String tologin(HttpServletRequest request,
-			HttpServletResponse response, Model model) {
+	public String tologin(HttpServletRequest request, HttpServletResponse response, Model model) {
 		logger.info("from IP[" + request.getRemoteHost() + "]");
 		Subject currentUser = SecurityUtils.getSubject();
 		if (currentUser.isAuthenticated()) {
@@ -63,8 +61,7 @@ public class UserController {
 	 * @return
 	 */
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public String login(@RequestParam("username") String username,
-			@RequestParam("password") String password) {
+	public String login(@RequestParam("username") String username, @RequestParam("password") String password) {
 
 		Subject currentUser = SecurityUtils.getSubject();
 		String result = "login";
@@ -90,8 +87,7 @@ public class UserController {
 	private String login(Subject currentUser, String username, String password) {
 		String result = "login";
 		password = CipherUtil.generatePassword(password);
-		UsernamePasswordToken token = new UsernamePasswordToken(username,
-				password);
+		UsernamePasswordToken token = new UsernamePasswordToken(username, password);
 		try {
 			currentUser.login(token);
 			token.setRememberMe(true);

@@ -13,11 +13,11 @@ import com.example.springmvc.front.services.ICompanyService;
  *
  */
 @Service("companyService")
-public class CompanyServiceImpl implements ICompanyService{
+public class CompanyServiceImpl implements ICompanyService {
 
 	@Autowired
 	private CompanyDao companyDao;
-	
+
 	public CompanyDao getCompanyDao() {
 		return companyDao;
 	}

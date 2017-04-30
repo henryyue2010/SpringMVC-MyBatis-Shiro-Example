@@ -19,12 +19,11 @@ public class UserServiceImpl implements IUserService {
 
 	@Autowired
 	private UserDao userDao;
-	
+
 	public List<User> getUsersByCompanyId(Integer id) {
 		return userDao.getUsersByCompanyId(id);
 	}
 
-	
 	public UserDao getUserDao() {
 		return userDao;
 	}
@@ -33,11 +32,9 @@ public class UserServiceImpl implements IUserService {
 		this.userDao = userDao;
 	}
 
-
 	public void addUser(User user) {
 		this.userDao.addUser(user);
 	}
-
 
 	public User findUserByLoginName(String username) {
 		return this.userDao.findUserByLoginName(username);

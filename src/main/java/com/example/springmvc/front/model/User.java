@@ -14,10 +14,11 @@ public class User implements Serializable {
 	private String username;
 	private String password;
 	private Integer role;
-	
+
 	private Company company;
-	
-	public User(){}
+
+	public User() {
+	}
 
 	public Integer getId() {
 		return id;
@@ -58,7 +59,5 @@ public class User implements Serializable {
 	public void setCompany(Company company) {
 		this.company = company;
 	}
-	
-	
-	
+
 }

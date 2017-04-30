@@ -24,25 +24,25 @@ import com.example.springmvc.front.services.IUserService;
 public class ShiroDbRealm extends AuthorizingRealm {
 	private static Logger logger = LoggerFactory.getLogger(ShiroDbRealm.class);
 	private static final String ALGORITHM = "MD5";
-	
+
 	@Autowired
 	private IUserService userService;
 
 	public ShiroDbRealm() {
 		super();
 	}
-	
+
 	/**
 	 * authenticate user info
 	 */
 	@Override
-	protected AuthenticationInfo doGetAuthenticationInfo(
-			AuthenticationToken authcToken) throws AuthenticationException {
+	protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authcToken)
+			throws AuthenticationException {
 		UsernamePasswordToken token = (UsernamePasswordToken) authcToken;
 		User user = userService.findUserByLoginName(token.getUsername());
 		if (user != null) {
 			return new SimpleAuthenticationInfo(user.getUsername(), user.getPassword(), getName());
-		}else{
+		} else {
 			throw new AuthenticationException();
 		}
 	}
@@ -53,14 +53,14 @@ public class ShiroDbRealm extends AuthorizingRealm {
 	@Override
 	protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
 		Set<String> roleNames = new HashSet<String>();
-	    Set<String> permissions = new HashSet<String>();
-	    roleNames.add("admin");
-	    roleNames.add("user");
-	    permissions.add("user.do?myjsp");
-	    permissions.add("login.do?main");
-	    permissions.add("login.do?logout");
+		Set<String> permissions = new HashSet<String>();
+		roleNames.add("admin");
+		roleNames.add("user");
+		permissions.add("user.do?myjsp");
+		permissions.add("login.do?main");
+		permissions.add("login.do?logout");
 		SimpleAuthorizationInfo info = new SimpleAuthorizationInfo(roleNames);
-	    info.setStringPermissions(permissions);
+		info.setStringPermissions(permissions);
 		return info;
 	}
 
