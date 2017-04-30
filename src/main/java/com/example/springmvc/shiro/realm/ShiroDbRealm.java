@@ -3,6 +3,7 @@ package com.example.springmvc.shiro.realm;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
@@ -14,16 +15,12 @@ import org.apache.shiro.cache.Cache;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.subject.SimplePrincipalCollection;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.example.springmvc.front.model.User;
 import com.example.springmvc.front.services.IUserService;
 
 public class ShiroDbRealm extends AuthorizingRealm {
-	private static Logger logger = LoggerFactory.getLogger(ShiroDbRealm.class);
-	private static final String ALGORITHM = "MD5";
 
 	@Autowired
 	private IUserService userService;
@@ -41,7 +38,7 @@ public class ShiroDbRealm extends AuthorizingRealm {
 		UsernamePasswordToken token = (UsernamePasswordToken) authcToken;
 		User user = userService.findUserByLoginName(token.getUsername());
 		if (user != null) {
-			return new SimpleAuthenticationInfo(user.getUsername(), user.getPassword(), getName());
+			return new SimpleAuthenticationInfo(user.getUsername(), DigestUtils.md5(user.getPassword()), getName());
 		} else {
 			throw new AuthenticationException();
 		}
